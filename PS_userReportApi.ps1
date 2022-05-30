@@ -1,10 +1,9 @@
 ﻿# Stale Accounts Script V2
 
 # Get all AD Users into a variable and change the dates from int64 
-$staleAccounts = Get-ADUser -Filter * -Properties PasswordLastSet,LastLogon |
-Select-Object -Property Name, DisplayName,
-@{N = "pwdlastset"; E = {[DateTime]::FromFileTime($_.pwdlastset)}},
-@{N = "AccountExpires"; E = {[DateTime]::FromFileTime($_.AccountExpires)}},
+$staleAccounts = Get-ADUser -Filter * -Properties pwdLastSet,LastLogon, samaccountname,name,enabled |
+Select-Object -Property samaccountname, Name, enabled,
+@{N = "pwdLastSet"; E = {[DateTime]::FromFileTime($_.pwdLastSet)}},
 @{N = "LastLogon"; E = {[DateTime]::FromFileTime($_.LastLogon)}}
 
 # Convert the results to JSON 
