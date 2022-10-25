@@ -1,4 +1,4 @@
-﻿# Stale Accounts Script V2
+﻿# Stale Accounts Script V2 by Brendo
 
 # Get all AD Users into a variable and change the dates from int64 
 $staleAccounts = Get-ADUser -Filter * -Properties pwdLastSet,lastLogon, samaccountname,name,enabled |
